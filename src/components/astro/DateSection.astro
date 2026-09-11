@@ -1,6 +1,10 @@
 ---
 import { getLocale, t } from "@/i18n";
+import { parseGuestParams } from "@/lib/guest";
 const locale = getLocale(Astro.url);
+const { moment } = parseGuestParams(Astro.url);
+const showAkad = moment === "akad" || moment === "both";
+const showResepsi = moment === "resepsi" || moment === "both";
 ---
 
 <section id="date" class="relative bg-burgundy-deep text-cream py-28 md:py-40 overflow-hidden">
@@ -26,15 +30,22 @@ const locale = getLocale(Astro.url);
       {t(locale, "date.month")} · {t(locale, "date.year")}
     </p>
 
-    <div class="mt-16 md:mt-24 grid gap-10 md:gap-16 md:grid-cols-2 max-w-3xl mx-auto">
-      <div data-reveal>
-        <p class="eyebrow text-burgundy-rose">{t(locale, "date.akad.label")}</p>
-        <p class="font-serif text-2xl md:text-3xl mt-2 text-cream">{t(locale, "date.akad.time")}</p>
-      </div>
-      <div data-reveal data-reveal-delay="0.15">
-        <p class="eyebrow text-burgundy-rose">{t(locale, "date.reception.label")}</p>
-        <p class="font-serif text-2xl md:text-3xl mt-2 text-cream">{t(locale, "date.reception.time")}</p>
-      </div>
+    <div class:list={[
+      "mt-16 md:mt-24 grid gap-10 md:gap-16 max-w-3xl mx-auto",
+      showAkad && showResepsi ? "md:grid-cols-2" : "md:grid-cols-1 place-items-center",
+    ]}>
+      {showAkad && (
+        <div data-reveal>
+          <p class="eyebrow text-burgundy-rose">{t(locale, "date.akad.label")}</p>
+          <p class="font-serif text-2xl md:text-3xl mt-2 text-cream">{t(locale, "date.akad.time")}</p>
+        </div>
+      )}
+      {showResepsi && (
+        <div data-reveal data-reveal-delay="0.15">
+          <p class="eyebrow text-burgundy-rose">{t(locale, "date.reception.label")}</p>
+          <p class="font-serif text-2xl md:text-3xl mt-2 text-cream">{t(locale, "date.reception.time")}</p>
+        </div>
+      )}
     </div>
   </div>
 </section>
