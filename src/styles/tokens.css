@@ -10,6 +10,46 @@
   font-display: swap;
 }
 
+/* Quranic Arabic type — KFGQPC family (King Fahd Complex) */
+@font-face {
+  font-family: "Uthman Naskh";
+  src: local("KFGQPC Uthman Taha Naskh"),
+       url("https://raw.githubusercontent.com/mustafa0x/qpc-fonts/f93bf5f3/various-woff2/UthmanTN1%20Ver10.woff2") format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Uthman Naskh";
+  font-weight: bold;
+  src: local("KFGQPC Uthman Taha Naskh Bold"), local("KFGQPCUthmanTahaNaskh-Bold"),
+       url("https://raw.githubusercontent.com/mustafa0x/qpc-fonts/f93bf5f3/various-woff2/UthmanTN1B%20Ver10.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Uthman Hafs";
+  src: local("KFGQPC Uthmanic Script HAFS"),
+       url("https://raw.githubusercontent.com/mustafa0x/qpc-fonts/f93bf5f3/various-woff2/UthmanicHafs1%20Ver09.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "QPC Symbols";
+  src: local("KFGQPC Arabic Symbols 01"),
+       url("https://raw.githubusercontent.com/mustafa0x/qpc-fonts/f93bf5f3/various-woff2/Symbols1_Ver02.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mushaf Ligatures";
+  src: local("QCF_BSML"),
+       url("https://raw.githubusercontent.com/mustafa0x/qpc-fonts/f93bf5f3/mushaf-v2-woff2/QCF_BSML.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Mushaf Page NNN";
+  src: local("QCF_PNNN"),
+       url("https://raw.githubusercontent.com/mustafa0x/qpc-fonts/f93bf5f3/mushaf-woff2/QCF_PNNN.woff2") format("woff2");
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --burgundy: #6B1E2A;
@@ -94,6 +134,24 @@
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: 400;
+  }
+
+  /* Arabic / Quranic type */
+  .font-quran {
+    font-family: "Uthman Hafs", "Uthman Naskh", "Amiri Quran", serif;
+    line-height: 2.2;
+    direction: rtl;
+    font-feature-settings: "liga", "calt";
+  }
+  .font-naskh {
+    font-family: "Uthman Naskh", "Amiri", serif;
+    line-height: 2.0;
+    direction: rtl;
+  }
+  .font-mushaf {
+    font-family: "Mushaf Ligatures", "Mushaf Page NNN", "Uthman Naskh", serif;
+    line-height: 1.8;
+    direction: rtl;
   }
 
   .rule {

@@ -10,7 +10,15 @@ const locale = getLocale(Astro.url);
     <p class="font-serif italic text-lg md:text-xl text-cream/80 leading-relaxed" data-reveal data-reveal-delay="0.1">
       {t(locale, "footer.thanks")}
     </p>
-    <p class="eyebrow mt-10 text-burgundy-rose">{t(locale, "footer.closing")}</p>
+    <p
+      lang="ar"
+      dir="rtl"
+      class="font-naskh text-cream text-xl md:text-2xl mt-12"
+      data-reveal data-reveal-delay="0.15"
+    >
+      {t(locale, "footer.closingArabic")}
+    </p>
+    <p class="eyebrow mt-3 text-burgundy-rose">{t(locale, "footer.closing")}</p>
     <p class="font-serif italic text-xl mt-6 text-cream" data-reveal data-reveal-delay="0.2">
       {t(locale, "footer.signature")}
     </p>

@@ -20,10 +20,12 @@
     "scroll": "Scroll to open"
   },
   "quote": {
+    "arabic": "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ",
     "verse": "\"And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy.\"",
     "source": "— QS. Ar-Rum: 21"
   },
   "greeting": {
+    "arabic": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
     "eyebrow": "Peace be upon you",
     "body": "By the grace of Allah SWT, we joyfully invite you to celebrate the wedding of:"
   },
@@ -94,6 +96,7 @@
   },
   "footer": {
     "thanks": "It would be our greatest honor to have you join and bless our special day.",
+    "closingArabic": "وَالسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
     "closing": "Peace be upon you.",
     "signature": "With love"
   }

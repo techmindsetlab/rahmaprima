@@ -6,8 +6,18 @@ const locale = getLocale(Astro.url);
 <section class="relative bg-ink py-24 md:py-36">
   <div class="container-fluid">
     <div class="text-center mb-16 md:mb-24">
-      <p class="eyebrow text-cream/60" data-reveal>{t(locale, "greeting.eyebrow")}</p>
-      <p class="mt-6 max-w-xl mx-auto text-cream/80 font-serif italic text-lg md:text-xl leading-relaxed" data-reveal data-reveal-delay="0.1">
+      <p
+        lang="ar"
+        dir="rtl"
+        class="font-naskh text-cream text-xl md:text-3xl mb-4"
+        data-reveal
+      >
+        {t(locale, "greeting.arabic")}
+      </p>
+      <p class="eyebrow text-cream/60" data-reveal data-reveal-delay="0.1">
+        {t(locale, "greeting.eyebrow")}
+      </p>
+      <p class="mt-6 max-w-xl mx-auto text-cream/80 font-serif italic text-lg md:text-xl leading-relaxed" data-reveal data-reveal-delay="0.2">
         {t(locale, "greeting.body")}
       </p>
     </div>
