@@ -1,0 +1,61 @@
+---
+// Overlay panel that sweeps up-then-down during Astro view transitions,
+// covering the swap with a burgundy satin curtain — the "bloop" flavor.
+---
+<div id="route-bloop" aria-hidden="true">
+  <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="rb-satin" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#4A0E19" />
+        <stop offset="50%" stop-color="#8B2E3A" />
+        <stop offset="100%" stop-color="#2A0810" />
+      </linearGradient>
+    </defs>
+    <path id="rb-path" d="M0,1100 Q500,1100 1000,1100 L1000,1100 L0,1100 Z" fill="url(#rb-satin)" />
+  </svg>
+</div>
+
+<style>
+  #route-bloop {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+  }
+  #route-bloop svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const overlay = document.getElementById("route-bloop");
+  const path = document.getElementById("rb-path") as SVGPathElement | null;
+  if (!overlay || !path) throw new Error("route-bloop missing");
+
+  const flat = "M0,1100 Q500,1100 1000,1100 L1000,1100 L0,1100 Z";
+  const upHalf = "M0,500  Q500,300  1000,500  L1000,1100 L0,1100 Z";
+  const cover  = "M0,-100 Q500,-100 1000,-100 L1000,1100 L0,1100 Z";
+  const drain  = "M0,-100 Q500,-100 1000,-100 L1000,-100 L0,-100 Z";
+
+  path.setAttribute("d", flat);
+
+  document.addEventListener("astro:before-preparation", (e: any) => {
+    // Delay the swap so the curtain has time to cover
+    const original = e.loader;
+    e.loader = async () => {
+      await gsap.to(path, { attr: { d: upHalf }, duration: 0.35, ease: "power2.in" });
+      await gsap.to(path, { attr: { d: cover }, duration: 0.35, ease: "power2.out" });
+      await original();
+    };
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    // Reset instantly, then reveal from top
+    gsap.set(path, { attr: { d: cover } });
+    gsap.to(path, { attr: { d: drain }, duration: 0.7, ease: "expo.inOut" });
+  });
+</script>

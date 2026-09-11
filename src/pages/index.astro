@@ -1,5 +1,7 @@
 ---
 import Base from "@/layouts/Base.astro";
+import Preloader from "@/components/astro/Preloader.astro";
+import RouteBloop from "@/components/astro/RouteBloop.astro";
 import Nav from "@/components/astro/Nav.astro";
 import Hero from "@/components/astro/Hero.astro";
 import Quote from "@/components/astro/Quote.astro";
@@ -42,6 +44,8 @@ const rsvpDict = {
 ---
 
 <Base>
+  <Preloader />
+  <RouteBloop />
   <Nav />
   <main>
     <Hero />

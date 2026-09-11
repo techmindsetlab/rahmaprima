@@ -1,5 +1,6 @@
 ---
 import "@/styles/tokens.css";
+import { ClientRouter } from "astro:transitions";
 import { getLocale, t, localizedPath, locales, type Locale } from "@/i18n";
 
 interface Props {
@@ -14,8 +15,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 
 <!doctype html>
-<html lang={locale} class="grain">
+<html lang={locale} class="grain preloading">
   <head>
+    <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0A0A0A" />
@@ -45,6 +47,27 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
     />
+    <style is:global>
+      /* Bloop-style page transition (view transitions API) */
+      @keyframes bloop-in {
+        0%   { clip-path: ellipse(0% 0% at 50% 100%); }
+        100% { clip-path: ellipse(150% 150% at 50% 100%); }
+      }
+      @keyframes bloop-out {
+        0%   { clip-path: ellipse(150% 150% at 50% 0%); }
+        100% { clip-path: ellipse(0% 0% at 50% 0%); }
+      }
+      ::view-transition-old(root) {
+        animation: bloop-out 0.7s cubic-bezier(0.76, 0, 0.24, 1) both;
+      }
+      ::view-transition-new(root) {
+        animation: bloop-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        mix-blend-mode: normal;
+      }
+    </style>
   </head>
   <body>
     <slot />
