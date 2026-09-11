@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "Rahma & Prima — The Wedding",
+    "description": "Wedding invitation of Rahma Madania & Primawira Aulia Rahman. Saturday, September 26, 2026 at Aminta Hall, South Jakarta."
+  },
+  "nav": {
+    "invitation": "Invitation",
+    "date": "Date",
+    "venue": "Venue",
+    "gallery": "Gallery",
+    "story": "Story",
+    "rsvp": "RSVP",
+    "gift": "Gift"
+  },
+  "hero": {
+    "eyebrow": "The Wedding Of",
+    "and": "&",
+    "date": "26 . 09 . 2026",
+    "invitation": "Wedding Invitation",
+    "scroll": "Scroll to open"
+  },
+  "quote": {
+    "verse": "\"And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy.\"",
+    "source": "— QS. Ar-Rum: 21"
+  },
+  "greeting": {
+    "eyebrow": "Peace be upon you",
+    "body": "By the grace of Allah SWT, we joyfully invite you to celebrate the wedding of:"
+  },
+  "couple": {
+    "bride": {
+      "name": "Rahma Madania",
+      "shortName": "Rahma",
+      "role": "The Bride",
+      "parents": "The daughter of",
+      "father": "Mr. Fahrizal Zain",
+      "mother": "Mrs. Nina Yuliana"
+    },
+    "groom": {
+      "name": "Primawira Aulia Rahman",
+      "shortName": "Prima",
+      "role": "The Groom",
+      "parents": "The son of",
+      "father": "Mr. Wimpy Wahidin Djajanegara (Late)",
+      "mother": "Mrs. Reni Yuliani Djajuli"
+    }
+  },
+  "date": {
+    "eyebrow": "Save The Date",
+    "dayName": "Saturday",
+    "day": "26",
+    "month": "September",
+    "year": "2026",
+    "akad": {
+      "label": "Ceremony",
+      "time": "16:00 — 17:30 WIB"
+    },
+    "reception": {
+      "label": "Reception",
+      "time": "18:30 — 21:00 WIB"
+    }
+  },
+  "venue": {
+    "eyebrow": "The Venue",
+    "name": "Aminta Hall",
+    "address": "Jl. Tol TB Simatupang Kav. 10, Pondok Pinang, Kebayoran Lama, South Jakarta",
+    "cta": "Open in Maps"
+  },
+  "gallery": {
+    "eyebrow": "Our Moments",
+    "title": "A glimpse of us"
+  },
+  "rsvp": {
+    "eyebrow": "Attendance",
+    "title": "Confirm your attendance",
+    "name": "Full Name",
+    "attendance": "Attendance",
+    "attending": "Attending",
+    "notAttending": "Not Attending",
+    "guests": "Number of Guests",
+    "guestsHint": "Maximum 2 persons",
+    "message": "Wishes & Prayers",
+    "submit": "Send",
+    "submitting": "Sending…",
+    "success": "Thank you for your prayers and wishes.",
+    "error": "Failed to send. Please try again."
+  },
+  "gift": {
+    "eyebrow": "Wedding Gift",
+    "title": "Wedding Gift",
+    "body": "Your prayers are the greatest gift. Should you wish to send a token of love, you may do so through:",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "footer": {
+    "thanks": "It would be our greatest honor to have you join and bless our special day.",
+    "closing": "Peace be upon you.",
+    "signature": "With love"
+  }
+}

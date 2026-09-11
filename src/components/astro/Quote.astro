@@ -1,0 +1,16 @@
+---
+import { getLocale, t } from "@/i18n";
+const locale = getLocale(Astro.url);
+---
+
+<section class="relative bg-ink text-cream/90 py-28 md:py-40">
+  <div class="container-fluid max-w-3xl mx-auto text-center">
+    <img src="/logo/monogram-white-sm.png" alt="" class="mx-auto h-14 md:h-20 opacity-90 mb-8" data-reveal />
+    <p class="font-serif italic text-xl md:text-3xl leading-relaxed text-cream" data-reveal data-reveal-delay="0.1">
+      {t(locale, "quote.verse")}
+    </p>
+    <p class="eyebrow mt-6 text-burgundy-rose" data-reveal data-reveal-delay="0.2">
+      {t(locale, "quote.source")}
+    </p>
+  </div>
+</section>

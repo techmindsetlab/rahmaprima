@@ -1,0 +1,84 @@
+---
+import { getLocale, t } from "@/i18n";
+const locale = getLocale(Astro.url);
+---
+
+<section class="relative min-h-[100dvh] w-full overflow-hidden bg-ink text-cream">
+  <!-- Burgundy satin backdrop (CSS-only, animated gradients evoking silk) -->
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute inset-0 satin"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/90"></div>
+  </div>
+
+  <!-- Floating photos (parallax-lite, hidden on smallest) -->
+  <div class="pointer-events-none absolute inset-0 hidden xs:block">
+    <img src="/photos/photo-08.webp" alt=""
+      class="absolute top-[18%] right-[6%] w-[34vw] max-w-[220px] rotate-3 opacity-70 shadow-2xl"
+      data-parallax="0.15" />
+    <img src="/photos/photo-07.webp" alt=""
+      class="absolute bottom-[14%] left-[6%] w-[38vw] max-w-[240px] -rotate-2 opacity-75 shadow-2xl"
+      data-parallax="0.25" />
+  </div>
+
+  <div class="relative z-10 container-fluid flex min-h-[100dvh] flex-col justify-between pt-24 pb-10">
+    <div class="mt-6 md:mt-14 text-center">
+      <p class="eyebrow text-cream/70" data-reveal>{t(locale, "hero.eyebrow")}</p>
+    </div>
+
+    <div class="text-center">
+      <h1 class="display-italic text-hero" data-reveal-mask>
+        <span>Rahma</span>
+      </h1>
+      <div class="flex items-center justify-center gap-4 my-2 md:my-3 text-cream/70">
+        <span class="rule max-w-[60px]"></span>
+        <span class="display-italic text-4xl md:text-6xl text-burgundy-rose">&amp;</span>
+        <span class="rule max-w-[60px]"></span>
+      </div>
+      <h1 class="display-italic text-hero" data-reveal-mask>
+        <span>Prima</span>
+      </h1>
+
+      <p class="eyebrow mt-8 text-cream/60" data-reveal data-reveal-delay="0.3">
+        {t(locale, "hero.date")}
+      </p>
+    </div>
+
+    <div class="text-center text-cream/50">
+      <p class="eyebrow" data-reveal data-reveal-delay="0.5">
+        {t(locale, "hero.scroll")}
+      </p>
+      <div class="mx-auto mt-3 h-10 w-px bg-gradient-to-b from-cream/60 to-transparent"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .satin {
+    background:
+      radial-gradient(60% 45% at 20% 30%, rgba(139, 46, 58, 0.55) 0%, transparent 60%),
+      radial-gradient(50% 40% at 80% 70%, rgba(74, 14, 25, 0.7) 0%, transparent 65%),
+      radial-gradient(40% 35% at 60% 20%, rgba(184, 84, 80, 0.35) 0%, transparent 60%),
+      linear-gradient(140deg, #1a0308 0%, #0a0a0a 45%, #2a0b13 100%);
+    filter: saturate(1.1);
+    animation: silk 22s ease-in-out infinite alternate;
+  }
+  @keyframes silk {
+    0%   { background-position: 0% 0%, 100% 100%, 50% 0%, 0 0; transform: scale(1); }
+    100% { background-position: 15% 20%, 85% 80%, 40% 10%, 0 0; transform: scale(1.06); }
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll<HTMLElement>("[data-parallax]");
+  const lenis = () => (window as any).__lenis;
+  const raf = () => {
+    const l = lenis();
+    const scrollY = l ? l.scroll : window.scrollY;
+    items.forEach((el) => {
+      const k = parseFloat(el.dataset.parallax ?? "0.1");
+      el.style.transform = `translate3d(0, ${scrollY * -k}px, 0) rotate(${el.style.getPropertyValue("--r") || "0deg"})`;
+    });
+    requestAnimationFrame(raf);
+  };
+  requestAnimationFrame(raf);
+</script>

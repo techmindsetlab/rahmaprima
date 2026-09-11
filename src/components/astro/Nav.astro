@@ -1,0 +1,29 @@
+---
+import { getLocale, t, localizedPath, type Locale } from "@/i18n";
+const locale = getLocale(Astro.url);
+const other: Locale = locale === "id" ? "en" : "id";
+---
+
+<header class="fixed top-0 inset-x-0 z-50 pointer-events-none">
+  <nav class="container-fluid flex items-center justify-between py-5 md:py-6 pointer-events-auto">
+    <a href={localizedPath(locale, "/")} class="flex items-center gap-2 group">
+      <img
+        src="/logo/monogram-white-sm.png"
+        alt="Rahma & Prima monogram"
+        class="h-8 w-auto md:h-9 opacity-90 group-hover:opacity-100 transition"
+      />
+    </a>
+
+    <div class="flex items-center gap-6 text-cream/70">
+      <a href="#rsvp" class="eyebrow hidden md:inline hover:text-cream transition">
+        {t(locale, "nav.rsvp")}
+      </a>
+      <a
+        href={localizedPath(other, Astro.url.pathname.replace(/^\/(en|id)/, "") || "/")}
+        class="eyebrow border border-cream/25 rounded-full px-3 py-1.5 hover:bg-cream hover:text-ink transition"
+      >
+        {other.toUpperCase()}
+      </a>
+    </div>
+  </nav>
+</header>

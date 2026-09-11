@@ -1,0 +1,47 @@
+---
+import { getLocale, t } from "@/i18n";
+const locale = getLocale(Astro.url);
+---
+
+<section class="relative bg-ink py-24 md:py-36">
+  <div class="container-fluid">
+    <div class="text-center mb-16 md:mb-24">
+      <p class="eyebrow text-cream/60" data-reveal>{t(locale, "greeting.eyebrow")}</p>
+      <p class="mt-6 max-w-xl mx-auto text-cream/80 font-serif italic text-lg md:text-xl leading-relaxed" data-reveal data-reveal-delay="0.1">
+        {t(locale, "greeting.body")}
+      </p>
+    </div>
+
+    <div class="grid gap-16 md:gap-10 md:grid-cols-2 max-w-5xl mx-auto">
+      <!-- Bride -->
+      <article class="text-center md:text-right" data-reveal>
+        <div class="relative overflow-hidden mb-8 mx-auto md:ml-auto md:mr-0 aspect-[3/4] max-w-[340px]">
+          <img src="/photos/photo-03.webp" alt="Rahma Madania"
+            class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <p class="eyebrow text-burgundy-rose">{t(locale, "couple.bride.role")}</p>
+        <h2 class="display-italic text-5xl md:text-6xl my-3 text-cream">
+          {t(locale, "couple.bride.name")}
+        </h2>
+        <p class="text-cream/60 text-sm mt-4">{t(locale, "couple.bride.parents")}</p>
+        <p class="text-cream mt-1 font-serif text-lg">{t(locale, "couple.bride.father")}</p>
+        <p class="text-cream/80 font-serif italic">&amp; {t(locale, "couple.bride.mother")}</p>
+      </article>
+
+      <!-- Groom -->
+      <article class="text-center md:text-left" data-reveal data-reveal-delay="0.15">
+        <div class="relative overflow-hidden mb-8 mx-auto md:mr-auto md:ml-0 aspect-[3/4] max-w-[340px]">
+          <img src="/photos/photo-12.webp" alt="Primawira Aulia Rahman"
+            class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <p class="eyebrow text-burgundy-rose">{t(locale, "couple.groom.role")}</p>
+        <h2 class="display-italic text-5xl md:text-6xl my-3 text-cream">
+          {t(locale, "couple.groom.name")}
+        </h2>
+        <p class="text-cream/60 text-sm mt-4">{t(locale, "couple.groom.parents")}</p>
+        <p class="text-cream mt-1 font-serif text-lg">{t(locale, "couple.groom.father")}</p>
+        <p class="text-cream/80 font-serif italic">&amp; {t(locale, "couple.groom.mother")}</p>
+      </article>
+    </div>
+  </div>
+</section>

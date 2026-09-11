@@ -1,0 +1,35 @@
+---
+import { getLocale, t } from "@/i18n";
+import { gallery } from "@/lib/gallery";
+const locale = getLocale(Astro.url);
+---
+
+<section id="gallery" class="relative bg-ink text-cream py-28 md:py-40 overflow-hidden">
+  <div class="container-fluid mb-16 md:mb-24 text-center">
+    <p class="eyebrow text-cream/60" data-reveal>{t(locale, "gallery.eyebrow")}</p>
+    <h2 class="display-italic text-5xl md:text-7xl mt-4 text-cream" data-reveal data-reveal-delay="0.1">
+      {t(locale, "gallery.title")}
+    </h2>
+  </div>
+
+  <!-- Scattered asymmetric grid, mobile-first (2 col) → iPad (12 col) -->
+  <div class="container-fluid">
+    <div class="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-6 max-w-6xl mx-auto">
+      {gallery.map((img, i) => {
+        const spanMob = i % 3 === 0 ? "col-span-2" : "col-span-1";
+        const spanDesk = `md:col-span-${img.w}`;
+        const push = i % 4 === 0 ? "md:mt-16" : i % 4 === 2 ? "md:mt-24" : "md:mt-0";
+        return (
+          <figure class={`${spanMob} ${spanDesk} ${push} overflow-hidden group`} data-reveal>
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading="lazy"
+              class="w-full h-full object-cover aspect-[3/4] transition duration-[1200ms] ease-out group-hover:scale-[1.03]"
+            />
+          </figure>
+        );
+      })}
+    </div>
+  </div>
+</section>

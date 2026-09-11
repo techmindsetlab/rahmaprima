@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "Rahma & Prima — The Wedding",
+    "description": "Undangan pernikahan Rahma Madania & Primawira Aulia Rahman. Sabtu, 26 September 2026 di Aminta Hall, Jakarta Selatan."
+  },
+  "nav": {
+    "invitation": "Undangan",
+    "date": "Waktu",
+    "venue": "Tempat",
+    "gallery": "Galeri",
+    "story": "Cerita",
+    "rsvp": "Konfirmasi",
+    "gift": "Hadiah"
+  },
+  "hero": {
+    "eyebrow": "The Wedding Of",
+    "and": "&",
+    "date": "26 . 09 . 2026",
+    "invitation": "Undangan Pernikahan",
+    "scroll": "Gulir untuk membuka"
+  },
+  "quote": {
+    "verse": "\"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.\"",
+    "source": "— QS. Ar-Rum: 21"
+  },
+  "greeting": {
+    "eyebrow": "Assalamu'alaikum Wr. Wb.",
+    "body": "Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:"
+  },
+  "couple": {
+    "bride": {
+      "name": "Rahma Madania",
+      "shortName": "Rahma",
+      "role": "The Bride",
+      "parents": "Putri dari",
+      "father": "Bapak Fahrizal Zain",
+      "mother": "Ibu Nina Yuliana"
+    },
+    "groom": {
+      "name": "Primawira Aulia Rahman",
+      "shortName": "Prima",
+      "role": "The Groom",
+      "parents": "Putra dari",
+      "father": "Bapak Wimpy Wahidin Djajanegara (Alm.)",
+      "mother": "Ibu Reni Yuliani Djajuli"
+    }
+  },
+  "date": {
+    "eyebrow": "Save The Date",
+    "dayName": "Sabtu",
+    "day": "26",
+    "month": "September",
+    "year": "2026",
+    "akad": {
+      "label": "Akad Nikah",
+      "time": "16:00 — 17:30 WIB"
+    },
+    "reception": {
+      "label": "Resepsi",
+      "time": "18:30 — 21:00 WIB"
+    }
+  },
+  "venue": {
+    "eyebrow": "The Venue",
+    "name": "Aminta Hall",
+    "address": "Jl. Tol TB Simatupang Kav. 10, Pondok Pinang, Kebayoran Lama, Jakarta Selatan",
+    "cta": "Buka di Peta"
+  },
+  "gallery": {
+    "eyebrow": "Our Moments",
+    "title": "Sekeping cerita"
+  },
+  "rsvp": {
+    "eyebrow": "Kehadiran",
+    "title": "Konfirmasi kehadiran",
+    "name": "Nama Lengkap",
+    "attendance": "Kehadiran",
+    "attending": "Hadir",
+    "notAttending": "Tidak Hadir",
+    "guests": "Jumlah Tamu",
+    "guestsHint": "Maksimum 2 orang",
+    "message": "Ucapan & Doa",
+    "submit": "Kirim",
+    "submitting": "Mengirim…",
+    "success": "Terima kasih atas doa dan ucapannya.",
+    "error": "Gagal mengirim. Coba lagi ya."
+  },
+  "gift": {
+    "eyebrow": "Wedding Gift",
+    "title": "Hadiah Pernikahan",
+    "body": "Doa restu Anda adalah hadiah terindah. Namun, jika berkenan memberikan tanda kasih, dapat melalui:",
+    "copy": "Salin",
+    "copied": "Tersalin"
+  },
+  "footer": {
+    "thanks": "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.",
+    "closing": "Wassalamu'alaikum Wr. Wb.",
+    "signature": "Kami yang berbahagia"
+  }
+}

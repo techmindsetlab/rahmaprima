@@ -1,0 +1,109 @@
+---
+import "@/styles/tokens.css";
+import { getLocale, t, localizedPath, locales, type Locale } from "@/i18n";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const locale = getLocale(Astro.url);
+const title = Astro.props.title ?? t(locale, "meta.title");
+const description = Astro.props.description ?? t(locale, "meta.description");
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang={locale} class="grain">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/photos/photo-07.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {locales.map((l) => (
+      <link
+        rel="alternate"
+        hreflang={l}
+        href={new URL(localizedPath(l as Locale, "/"), Astro.site).toString()}
+      />
+    ))}
+
+    <link rel="icon" href="/logo/monogram-white-sm.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      import Lenis from "lenis";
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!prefersReduce) {
+        const lenis = new Lenis({
+          duration: 1.15,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          touchMultiplier: 1.2,
+        });
+
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        (window as any).__lenis = lenis;
+      }
+
+      // Global reveal
+      const revealTargets = document.querySelectorAll<HTMLElement>("[data-reveal]");
+      revealTargets.forEach((el) => {
+        const delay = parseFloat(el.dataset.revealDelay ?? "0");
+        const y = parseFloat(el.dataset.revealY ?? "32");
+        gsap.fromTo(
+          el,
+          { opacity: 0, y },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            delay,
+            ease: "expo.out",
+            scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          }
+        );
+      });
+
+      // Mask reveal (words / chars pre-split by author)
+      const maskTargets = document.querySelectorAll<HTMLElement>("[data-reveal-mask]");
+      maskTargets.forEach((wrap) => {
+        const items = wrap.querySelectorAll<HTMLElement>(":scope > *");
+        gsap.to(items, {
+          y: "0%",
+          duration: 1.2,
+          ease: "expo.out",
+          stagger: 0.06,
+          scrollTrigger: { trigger: wrap, start: "top 85%", once: true },
+        });
+      });
+    </script>
+  </body>
+</html>

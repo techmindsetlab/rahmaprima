@@ -1,0 +1,58 @@
+---
+import Base from "@/layouts/Base.astro";
+import Nav from "@/components/astro/Nav.astro";
+import Hero from "@/components/astro/Hero.astro";
+import Quote from "@/components/astro/Quote.astro";
+import Couple from "@/components/astro/Couple.astro";
+import DateSection from "@/components/astro/DateSection.astro";
+import Marquee from "@/components/astro/Marquee.astro";
+import Venue from "@/components/astro/Venue.astro";
+import Gallery from "@/components/astro/Gallery.astro";
+import Footer from "@/components/astro/Footer.astro";
+import Gift from "@/components/react/Gift";
+import RSVP from "@/components/react/RSVP";
+import { getLocale, t } from "@/i18n";
+
+const locale = getLocale(Astro.url);
+const endpoint = import.meta.env.PUBLIC_RSVP_ENDPOINT ?? "";
+
+const giftDict = {
+  eyebrow: t(locale, "gift.eyebrow"),
+  title: t(locale, "gift.title"),
+  body: t(locale, "gift.body"),
+  copy: t(locale, "gift.copy"),
+  copied: t(locale, "gift.copied"),
+};
+
+const rsvpDict = {
+  eyebrow: t(locale, "rsvp.eyebrow"),
+  title: t(locale, "rsvp.title"),
+  name: t(locale, "rsvp.name"),
+  attendance: t(locale, "rsvp.attendance"),
+  attending: t(locale, "rsvp.attending"),
+  notAttending: t(locale, "rsvp.notAttending"),
+  guests: t(locale, "rsvp.guests"),
+  guestsHint: t(locale, "rsvp.guestsHint"),
+  message: t(locale, "rsvp.message"),
+  submit: t(locale, "rsvp.submit"),
+  submitting: t(locale, "rsvp.submitting"),
+  success: t(locale, "rsvp.success"),
+  error: t(locale, "rsvp.error"),
+};
+---
+
+<Base>
+  <Nav />
+  <main>
+    <Hero />
+    <Quote />
+    <Couple />
+    <DateSection />
+    <Marquee text="Rahma & Prima · 26 . 09 . 2026" />
+    <Venue />
+    <Gallery />
+    <Gift client:visible {...giftDict} />
+    <RSVP client:visible dict={rsvpDict} endpoint={endpoint} />
+    <Footer />
+  </main>
+</Base>
