@@ -47,6 +47,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
     />
+    <link
+      rel="preload"
+      href="/fonts/SchnyderWideL-Light.otf"
+      as="font"
+      type="font/otf"
+      crossorigin
+    />
     <style is:global>
       /* Bloop-style page transition (view transitions API) */
       @keyframes bloop-in {

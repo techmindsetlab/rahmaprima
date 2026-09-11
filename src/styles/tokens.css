@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Schnyder Wide L";
+  src: url("/fonts/SchnyderWideL-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --burgundy: #6B1E2A;
@@ -17,7 +25,7 @@
     --grid-gutter: clamp(16px, 4vw, 32px);
     --page-pad: clamp(20px, 6vw, 64px);
 
-    --font-display: "Reckless", "Cormorant Garamond", Georgia, serif;
+    --font-display: "Schnyder Wide L", "Cormorant Garamond", Georgia, serif;
     --font-serif: "Cormorant Garamond", Georgia, serif;
     --font-sans: "Inter", system-ui, sans-serif;
 
@@ -64,12 +72,28 @@
     font-weight: 500;
   }
 
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+
+  /* Legacy class name kept for template compatibility — Schnyder Wide L Light, upright */
   .display-italic {
     font-family: var(--font-display);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+
+  /* Explicit Cormorant italic for accent phrases (ampersand, small captions) */
+  .accent-italic {
+    font-family: var(--font-serif);
     font-style: italic;
     font-weight: 400;
-    line-height: 0.92;
-    letter-spacing: -0.02em;
   }
 
   .rule {

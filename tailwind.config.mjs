@@ -25,7 +25,7 @@ export default {
         gold: "#C9A961",
       },
       fontFamily: {
-        display: ['"Reckless"', '"Cormorant Garamond"', "serif"],
+        display: ['"Schnyder Wide L"', '"Cormorant Garamond"', "Georgia", "serif"],
         serif: ['"Cormorant Garamond"', "Georgia", "serif"],
         sans: ['"Inter"', "system-ui", "sans-serif"],
         mono: ['"JetBrains Mono"', "monospace"],
