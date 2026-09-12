@@ -20,9 +20,9 @@
     "scroll": "Scroll to open"
   },
   "opener": {
-    "welcome": "With love,\nwe invite you to our wedding",
+    "welcome": "By the grace of Allah,\nwe invite you to our wedding",
     "dear": "Dear",
-    "guestDefault": "Our Beloved Guest",
+    "guestDefault": "Our Honored Guest",
     "button": "Open Invitation"
   },
   "quote": {
@@ -33,7 +33,7 @@
   "greeting": {
     "arabic": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
     "eyebrow": "Peace be upon you",
-    "body": "By the grace of Allah SWT, we joyfully invite you to celebrate the wedding of:"
+    "body": "By the grace and blessings of Allah SWT, we humbly invite you to witness the marriage of:"
   },
   "couple": {
     "bride": {
@@ -101,9 +101,9 @@
     "copied": "Copied"
   },
   "footer": {
-    "thanks": "It would be our greatest honor to have you join and bless our special day.",
+    "thanks": "It would be our greatest honor to have you present, and to receive your prayers for our marriage.",
     "closingArabic": "وَالسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ",
     "closing": "Peace be upon you.",
-    "signature": "With love"
+    "signature": "In gratitude and joy"
   }
 }

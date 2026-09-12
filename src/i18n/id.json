@@ -20,7 +20,7 @@
     "scroll": "Gulir untuk membuka"
   },
   "opener": {
-    "welcome": "Dengan penuh cinta,\nkami mengundang Anda ke pernikahan kami",
+    "welcome": "Dengan memohon ridha Allah,\nkami mengundang Anda pada hari bahagia kami",
     "dear": "Kepada Yth.",
     "guestDefault": "Bapak / Ibu / Saudara/i",
     "button": "Buka Undangan"
@@ -91,7 +91,7 @@
     "submit": "Kirim",
     "submitting": "Mengirim…",
     "success": "Terima kasih atas doa dan ucapannya.",
-    "error": "Gagal mengirim. Coba lagi ya."
+    "error": "Mohon maaf, pengiriman gagal. Silakan coba kembali."
   },
   "gift": {
     "eyebrow": "Wedding Gift",
