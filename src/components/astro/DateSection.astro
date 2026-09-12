@@ -8,10 +8,16 @@ const showResepsi = moment === "resepsi" || moment === "both";
 ---
 
 <section id="date" class="relative bg-burgundy-deep text-cream py-28 md:py-40 overflow-hidden">
-  <div class="absolute inset-0 opacity-40 pointer-events-none"
-       style="background: radial-gradient(60% 50% at 50% 30%, #6B1E2A 0%, transparent 70%);"></div>
+  <!-- Silk satin base -->
+  <div class="absolute inset-0 satin-date pointer-events-none"></div>
 
-  <div class="relative container-fluid text-center">
+  <!-- Interactive dot distortion canvas -->
+  <canvas id="date-dots" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+  <!-- Touch/mouse capture layer (transparent) -->
+  <div id="date-hit" class="absolute inset-0" aria-hidden="true"></div>
+
+  <div class="relative container-fluid text-center pointer-events-none">
     <p class="eyebrow text-cream/60 mb-10" data-reveal>{t(locale, "date.eyebrow")}</p>
 
     <p class="font-serif italic text-2xl md:text-3xl text-cream/80" data-reveal data-reveal-delay="0.1">
@@ -31,7 +37,7 @@ const showResepsi = moment === "resepsi" || moment === "both";
     </p>
 
     <div class:list={[
-      "mt-16 md:mt-24 grid gap-10 md:gap-16 max-w-3xl mx-auto",
+      "mt-16 md:mt-24 grid gap-10 md:gap-16 max-w-3xl mx-auto pointer-events-none",
       showAkad && showResepsi ? "md:grid-cols-2" : "md:grid-cols-1 place-items-center",
     ]}>
       {showAkad && (
@@ -49,3 +55,144 @@ const showResepsi = moment === "resepsi" || moment === "both";
     </div>
   </div>
 </section>
+
+<style>
+  .satin-date {
+    background:
+      radial-gradient(60% 45% at 30% 30%, rgba(139, 46, 58, 0.55) 0%, transparent 60%),
+      radial-gradient(50% 40% at 75% 70%, rgba(74, 14, 25, 0.75) 0%, transparent 65%),
+      radial-gradient(40% 35% at 60% 20%, rgba(184, 84, 80, 0.28) 0%, transparent 60%),
+      linear-gradient(140deg, #2a0810 0%, #4A0E19 45%, #1a0308 100%);
+    animation: satin-date-flow 26s ease-in-out infinite alternate;
+  }
+  @keyframes satin-date-flow {
+    from { background-position: 0% 0%, 100% 100%, 50% 0%, 0 0; }
+    to   { background-position: 20% 15%, 80% 85%, 35% 12%, 0 0; }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById("date-dots") as HTMLCanvasElement | null;
+  const hit = document.getElementById("date-hit");
+  const section = document.getElementById("date");
+  if (canvas && hit && section) {
+    const ctx = canvas.getContext("2d")!;
+    const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    type Dot = { x: number; y: number; ox: number; oy: number; vx: number; vy: number };
+    let dots: Dot[] = [];
+    let dpr = 1;
+    let W = 0, H = 0;
+    let mouseX = -9999, mouseY = -9999;
+    let active = false;
+
+    const SPACING = 26;         // grid spacing (px)
+    const RADIUS = 140;         // influence radius
+    const PUSH = 34;            // max displacement
+    const SPRING = 0.09;        // return-to-home strength
+    const FRICTION = 0.82;
+
+    const rgba = (a: number) => `rgba(245, 239, 230, ${a})`;
+
+    function resize() {
+      const rect = section!.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width;
+      H = rect.height;
+      canvas!.width = Math.floor(W * dpr);
+      canvas!.height = Math.floor(H * dpr);
+      canvas!.style.width = W + "px";
+      canvas!.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+    }
+
+    function seed() {
+      dots = [];
+      const cols = Math.ceil(W / SPACING) + 2;
+      const rows = Math.ceil(H / SPACING) + 2;
+      const offsetX = (W - (cols - 1) * SPACING) / 2;
+      const offsetY = (H - (rows - 1) * SPACING) / 2;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = offsetX + c * SPACING;
+          const y = offsetY + r * SPACING;
+          dots.push({ x, y, ox: x, oy: y, vx: 0, vy: 0 });
+        }
+      }
+    }
+
+    function tick() {
+      ctx.clearRect(0, 0, W, H);
+      for (const d of dots) {
+        // distortion
+        const dx = d.x - mouseX;
+        const dy = d.y - mouseY;
+        const dist2 = dx * dx + dy * dy;
+        const r2 = RADIUS * RADIUS;
+        if (active && dist2 < r2) {
+          const dist = Math.sqrt(dist2) || 0.0001;
+          const f = (1 - dist / RADIUS) * PUSH;
+          d.vx += (dx / dist) * f * 0.15;
+          d.vy += (dy / dist) * f * 0.15;
+        }
+        // spring back
+        d.vx += (d.ox - d.x) * SPRING;
+        d.vy += (d.oy - d.y) * SPRING;
+        d.vx *= FRICTION;
+        d.vy *= FRICTION;
+        d.x += d.vx;
+        d.y += d.vy;
+
+        // draw
+        const disp = Math.hypot(d.x - d.ox, d.y - d.oy);
+        const opacity = 0.14 + Math.min(disp / 40, 0.55);
+        const size = 1 + Math.min(disp / 22, 1.8);
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = rgba(opacity);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    function onMove(x: number, y: number) {
+      const rect = canvas!.getBoundingClientRect();
+      mouseX = x - rect.left;
+      mouseY = y - rect.top;
+      active = true;
+    }
+    function onLeave() { active = false; mouseX = mouseY = -9999; }
+
+    hit.addEventListener("pointermove", (e) => onMove(e.clientX, e.clientY), { passive: true });
+    hit.addEventListener("pointerdown", (e) => onMove(e.clientX, e.clientY), { passive: true });
+    hit.addEventListener("pointerleave", onLeave, { passive: true });
+    hit.addEventListener("pointercancel", onLeave, { passive: true });
+
+    // touch fallback (some browsers)
+    hit.addEventListener("touchmove", (e) => {
+      const t = e.touches[0];
+      if (t) onMove(t.clientX, t.clientY);
+    }, { passive: true });
+    hit.addEventListener("touchend", onLeave, { passive: true });
+
+    // Only run when visible for perf
+    let raf = 0;
+    let running = false;
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting && !running && !prefersReduce) {
+          running = true;
+          raf = requestAnimationFrame(tick);
+        } else if (!e.isIntersecting && running) {
+          running = false;
+          cancelAnimationFrame(raf);
+        }
+      }
+    }, { threshold: 0.05 });
+    io.observe(section);
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+  }
+</script>
