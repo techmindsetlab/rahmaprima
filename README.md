@@ -2,6 +2,8 @@
 
 Undangan pernikahan digital untuk **Rahma Madania & Primawira Aulia Rahman** — 26 September 2026, Aminta Hall Jakarta Selatan.
 
+Live: https://rahmaprima.vercel.app
+
 ## Tech Stack
 
 - **Astro 5** + **React 19 islands**
