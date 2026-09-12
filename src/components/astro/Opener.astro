@@ -1,10 +1,10 @@
 ---
 import { getLocale, t } from "@/i18n";
-import { parseGuestParams } from "@/lib/guest";
 
 const locale = getLocale(Astro.url);
-const { guestName } = parseGuestParams(Astro.url);
-const displayName = guestName ?? t(locale, "opener.guestDefault");
+// Static build: render default. Real guest name is injected client-side
+// from ?to= URL param (see script at bottom).
+const displayName = t(locale, "opener.guestDefault");
 const welcomeLines = t(locale, "opener.welcome").split("\n");
 ---
 
@@ -278,6 +278,19 @@ const welcomeLines = t(locale, "opener.welcome").split("\n");
   const num = document.getElementById("opener-num");
   const ring = document.getElementById("opener-ring-progress") as SVGCircleElement | null;
   const path = document.getElementById("op-path") as SVGPathElement | null;
+
+  // Personalize guest name from ?to= URL param (Astro static build cannot
+  // read query params at build time, so we hydrate here).
+  const guestEl = document.getElementById("opener-guest");
+  if (guestEl) {
+    try {
+      const raw = new URLSearchParams(window.location.search).get("to");
+      if (raw) {
+        const clean = raw.trim().slice(0, 120);
+        if (clean) guestEl.textContent = clean;
+      }
+    } catch {}
+  }
 
   const alreadyShown = sessionStorage.getItem(KEY) === "1";
 
