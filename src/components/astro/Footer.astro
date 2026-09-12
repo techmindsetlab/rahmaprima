@@ -108,21 +108,21 @@ const bgImages = ["/photos/photo-13.jpg", "/photos/photo-14.jpg"];
       }
 
       const footer = bg.closest("footer");
-      if (!footer) return;
-
-      let running = false;
-      const io = new IntersectionObserver((entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting && !running && !prefersReduce) {
-            running = true;
-            timer = window.setInterval(step, 5500);
-          } else if (!e.isIntersecting && running) {
-            running = false;
-            if (timer) window.clearInterval(timer);
+      if (footer) {
+        let running = false;
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting && !running && !prefersReduce) {
+              running = true;
+              timer = window.setInterval(step, 5500);
+            } else if (!e.isIntersecting && running) {
+              running = false;
+              if (timer) window.clearInterval(timer);
+            }
           }
-        }
-      }, { threshold: 0.1 });
-      io.observe(footer);
+        }, { threshold: 0.1 });
+        io.observe(footer);
+      }
     }
   }
 </script>
