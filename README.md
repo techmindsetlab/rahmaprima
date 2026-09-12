@@ -67,3 +67,5 @@ Lihat `scripts/apps-script/Code.gs` untuk setup lengkap. Ringkasnya:
 - [ ] Countdown timer di hero
 - [ ] Add-to-calendar (.ics) button
 - [ ] Music toggle (howler.js)
+
+<!-- v-check 20260912T003351Z -->
