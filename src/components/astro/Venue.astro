@@ -5,20 +5,18 @@ const mapQuery = encodeURIComponent("Aminta Hall Jl. Tol TB Simatupang Kav. 10, 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 ---
 
-<section id="venue" class="relative text-cream min-h-[100dvh] flex items-center overflow-hidden">
+<section id="venue" class="relative isolate text-cream min-h-[100dvh] flex items-center overflow-hidden bg-ink">
   <!-- Full-bleed venue photo -->
-  <div class="absolute inset-0 -z-10">
-    <img
-      src="/photos/plaza-aminta.webp"
-      alt="Aminta Hall — Plaza Aminta"
-      class="w-full h-full object-cover"
-      loading="lazy"
-    />
-    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/50"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-ink/90"></div>
-  </div>
+  <img
+    src="/photos/plaza-aminta.webp"
+    alt="Aminta Hall — Plaza Aminta"
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    loading="lazy"
+  />
+  <div class="absolute inset-0 z-[1] bg-gradient-to-t from-ink via-ink/60 to-ink/40"></div>
+  <div class="absolute inset-0 z-[1] bg-gradient-to-b from-ink/50 via-transparent to-ink/85"></div>
 
-  <div class="relative w-full container-fluid py-28 md:py-40">
+  <div class="relative z-10 w-full container-fluid py-28 md:py-40">
     <div class="max-w-3xl mx-auto text-center">
       <p class="eyebrow text-cream/70" data-reveal>{t(locale, "venue.eyebrow")}</p>
       <h2 class="display-italic text-5xl md:text-7xl mt-4 mb-8 text-cream" data-reveal data-reveal-delay="0.1">
