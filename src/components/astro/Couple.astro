@@ -1,6 +1,9 @@
 ---
 import { getLocale, t } from "@/i18n";
 const locale = getLocale(Astro.url);
+
+const brideImages = ["/photos/photo-07.webp", "/photos/photo-12.webp"];
+const groomImages = ["/photos/photo-08.webp", "/photos/photo-10.webp"];
 ---
 
 <section class="relative bg-ink py-24 md:py-36">
@@ -25,9 +28,19 @@ const locale = getLocale(Astro.url);
     <div class="grid gap-16 md:gap-10 md:grid-cols-2 max-w-5xl mx-auto">
       <!-- Bride -->
       <article class="text-center md:text-right" data-reveal>
-        <div class="relative overflow-hidden mb-8 mx-auto md:ml-auto md:mr-0 aspect-[3/4] max-w-[340px]">
-          <img src="/photos/photo-03.webp" alt="Rahma Madania"
-            class="w-full h-full object-cover" loading="lazy" />
+        <div
+          class="couple-slideshow relative overflow-hidden mb-8 mx-auto md:ml-auto md:mr-0 aspect-[3/4] max-w-[360px]"
+          data-interval="4200"
+          data-start-delay="0"
+        >
+          {brideImages.map((src, i) => (
+            <img
+              src={src}
+              alt="Rahma Madania"
+              loading={i === 0 ? "eager" : "lazy"}
+              class:list={["slide", i === 0 && "is-active"]}
+            />
+          ))}
         </div>
         <p class="eyebrow text-burgundy-rose">{t(locale, "couple.bride.role")}</p>
         <h2 class="display-italic text-5xl md:text-6xl my-3 text-cream">
@@ -40,9 +53,19 @@ const locale = getLocale(Astro.url);
 
       <!-- Groom -->
       <article class="text-center md:text-left" data-reveal data-reveal-delay="0.15">
-        <div class="relative overflow-hidden mb-8 mx-auto md:mr-auto md:ml-0 aspect-[3/4] max-w-[340px]">
-          <img src="/photos/photo-12.webp" alt="Primawira Aulia Rahman"
-            class="w-full h-full object-cover" loading="lazy" />
+        <div
+          class="couple-slideshow relative overflow-hidden mb-8 mx-auto md:mr-auto md:ml-0 aspect-[3/4] max-w-[360px]"
+          data-interval="4200"
+          data-start-delay="2100"
+        >
+          {groomImages.map((src, i) => (
+            <img
+              src={src}
+              alt="Primawira Aulia Rahman"
+              loading={i === 0 ? "eager" : "lazy"}
+              class:list={["slide", i === 0 && "is-active"]}
+            />
+          ))}
         </div>
         <p class="eyebrow text-burgundy-rose">{t(locale, "couple.groom.role")}</p>
         <h2 class="display-italic text-5xl md:text-6xl my-3 text-cream">
@@ -55,3 +78,88 @@ const locale = getLocale(Astro.url);
     </div>
   </div>
 </section>
+
+<style>
+  .couple-slideshow { background: #0a0a0a; }
+  .couple-slideshow .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(16px);
+    transition:
+      opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1400ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform, filter;
+    pointer-events: none;
+  }
+  .couple-slideshow .slide.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    z-index: 2;
+  }
+  .couple-slideshow .slide.is-leaving {
+    opacity: 0;
+    transform: translateY(-24px);
+    filter: blur(16px);
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .couple-slideshow .slide { transition: opacity 400ms ease; transform: none; filter: none; }
+    .couple-slideshow .slide.is-leaving { transform: none; filter: none; }
+  }
+</style>
+
+<script>
+  const shows = document.querySelectorAll<HTMLElement>(".couple-slideshow");
+  const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  shows.forEach((show) => {
+    const slides = Array.from(show.querySelectorAll<HTMLImageElement>(".slide"));
+    if (slides.length < 2) return;
+
+    const interval = parseInt(show.dataset.interval || "4000", 10);
+    const startDelay = parseInt(show.dataset.startDelay || "0", 10);
+    let idx = 0;
+    let timer: number | undefined;
+
+    function step() {
+      const cur = slides[idx];
+      idx = (idx + 1) % slides.length;
+      const next = slides[idx];
+
+      cur.classList.remove("is-active");
+      cur.classList.add("is-leaving");
+      next.classList.remove("is-leaving");
+      next.classList.add("is-active");
+
+      // Clean up the leaving class after the transition ends
+      window.setTimeout(() => cur.classList.remove("is-leaving"), 1500);
+    }
+
+    // Pause when off-screen
+    let running = false;
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting && !running) {
+          running = true;
+          window.setTimeout(() => {
+            step();
+            timer = window.setInterval(step, interval);
+          }, startDelay);
+        } else if (!e.isIntersecting && running) {
+          running = false;
+          if (timer) window.clearInterval(timer);
+        }
+      }
+    }, { threshold: 0.25 });
+
+    if (!prefersReduce) io.observe(show);
+  });
+</script>

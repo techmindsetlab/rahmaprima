@@ -5,28 +5,37 @@ const mapQuery = encodeURIComponent("Aminta Hall Jl. Tol TB Simatupang Kav. 10, 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 ---
 
-<section id="venue" class="relative bg-ink text-cream py-28 md:py-40">
-  <div class="container-fluid max-w-3xl mx-auto text-center">
-    <p class="eyebrow text-cream/60" data-reveal>{t(locale, "venue.eyebrow")}</p>
-    <h2 class="display-italic text-5xl md:text-7xl mt-4 mb-8 text-cream" data-reveal data-reveal-delay="0.1">
-      {t(locale, "venue.name")}
-    </h2>
-    <p class="font-serif text-lg md:text-xl leading-relaxed text-cream/80 max-w-xl mx-auto" data-reveal data-reveal-delay="0.2">
-      {t(locale, "venue.address")}
-    </p>
+<section id="venue" class="relative text-cream min-h-[100dvh] flex items-center overflow-hidden">
+  <!-- Full-bleed venue photo -->
+  <div class="absolute inset-0 -z-10">
+    <img
+      src="/photos/plaza-aminta.webp"
+      alt="Aminta Hall — Plaza Aminta"
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/50"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-ink/90"></div>
+  </div>
 
-    <a href={mapUrl} target="_blank" rel="noopener"
-       class="eyebrow inline-flex items-center gap-2 mt-10 px-6 py-3 border border-cream/30 rounded-full hover:bg-cream hover:text-ink transition"
-       data-reveal data-reveal-delay="0.3">
-      {t(locale, "venue.cta")}
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M7 17L17 7M17 7H8M17 7V16"/>
-      </svg>
-    </a>
+  <div class="relative w-full container-fluid py-28 md:py-40">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="eyebrow text-cream/70" data-reveal>{t(locale, "venue.eyebrow")}</p>
+      <h2 class="display-italic text-5xl md:text-7xl mt-4 mb-8 text-cream" data-reveal data-reveal-delay="0.1">
+        {t(locale, "venue.name")}
+      </h2>
+      <p class="font-serif text-lg md:text-xl leading-relaxed text-cream/85 max-w-xl mx-auto" data-reveal data-reveal-delay="0.2">
+        {t(locale, "venue.address")}
+      </p>
 
-    <div class="mt-12 relative aspect-[16/10] max-w-2xl mx-auto overflow-hidden rounded-sm border border-cream/10" data-reveal data-reveal-delay="0.4">
-      <img src="/photos/photo-06.webp" alt="Venue" class="w-full h-full object-cover opacity-80" loading="lazy" />
-      <div class="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent"></div>
+      <a href={mapUrl} target="_blank" rel="noopener"
+         class="eyebrow inline-flex items-center gap-2 mt-10 px-6 py-3 border border-cream/40 rounded-full hover:bg-cream hover:text-ink transition backdrop-blur-sm bg-ink/30"
+         data-reveal data-reveal-delay="0.3">
+        {t(locale, "venue.cta")}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M7 17L17 7M17 7H8M17 7V16"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
