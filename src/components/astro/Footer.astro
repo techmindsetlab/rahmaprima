@@ -68,7 +68,7 @@ const bgImages = ["/photos/photo-13.jpg", "/photos/photo-14.jpg"];
   }
   .footer-bg-slide.is-active {
     opacity: 0.55;
-    filter: blur(3px);
+    filter: blur(0);
     transform: scale(1);
   }
   .footer-bg-slide.is-leaving {
@@ -78,7 +78,7 @@ const bgImages = ["/photos/photo-13.jpg", "/photos/photo-14.jpg"];
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .footer-bg-slide { transition: opacity 500ms ease; transform: none; filter: blur(3px); }
+    .footer-bg-slide { transition: opacity 500ms ease; transform: none; filter: blur(0); }
     .footer-bg-slide.is-active { opacity: 0.55; }
     .footer-bg-slide.is-leaving { opacity: 0; }
   }
