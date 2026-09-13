@@ -3,24 +3,22 @@ import { getLocale, t } from "@/i18n";
 const locale = getLocale(Astro.url);
 ---
 
-<section class="relative min-h-[100dvh] w-full overflow-hidden bg-ink text-cream">
-  <!-- Burgundy satin backdrop (CSS-only, animated gradients evoking silk) -->
-  <div class="absolute inset-0 -z-10">
-    <div class="absolute inset-0 satin"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/90"></div>
-  </div>
+<section class="relative isolate min-h-[100dvh] w-full overflow-hidden text-cream">
+  <!-- Burgundy satin backdrop -->
+  <div class="absolute inset-0 z-0 satin"></div>
+  <div class="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-ink/90"></div>
 
-  <!-- Floating photos (parallax-lite, hidden on smallest) -->
-  <div class="pointer-events-none absolute inset-0 hidden xs:block">
+  <!-- Floating photos (always visible, tuned for mobile portrait) -->
+  <div class="pointer-events-none absolute inset-0 z-[1]">
     <img src="/photos/photo-08.webp" alt=""
-      class="absolute top-[18%] right-[6%] w-[34vw] max-w-[220px] rotate-3 opacity-70 shadow-2xl"
+      class="absolute top-[10%] right-[4%] w-[30vw] max-w-[220px] rotate-3 opacity-70 shadow-2xl"
       data-parallax="0.15" />
     <img src="/photos/photo-07.webp" alt=""
-      class="absolute bottom-[14%] left-[6%] w-[38vw] max-w-[240px] -rotate-2 opacity-75 shadow-2xl"
+      class="absolute bottom-[10%] left-[4%] w-[32vw] max-w-[240px] -rotate-2 opacity-75 shadow-2xl"
       data-parallax="0.25" />
   </div>
 
-  <div class="relative z-10 container-fluid flex min-h-[100dvh] flex-col justify-between pt-24 pb-10">
+  <div class="relative z-10 container-fluid flex min-h-[100dvh] flex-col justify-between pt-28 pb-14">
     <div class="mt-6 md:mt-14 text-center">
       <p class="eyebrow text-cream/70" data-reveal>{t(locale, "hero.eyebrow")}</p>
     </div>
