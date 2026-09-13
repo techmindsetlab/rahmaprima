@@ -1,12 +1,14 @@
 ---
 import { getLocale, t, localizedPath, type Locale } from "@/i18n";
+import MusicPlayer from "@/components/astro/MusicPlayer.astro";
 const locale = getLocale(Astro.url);
 const other: Locale = locale === "id" ? "en" : "id";
 ---
 
 <header class="fixed top-0 inset-x-0 z-50 pointer-events-none">
-  <nav class="container-fluid flex items-center justify-between py-5 md:py-6 pointer-events-auto">
-    <a href={localizedPath(locale, "/")} class="flex items-center gap-2 group">
+  <nav class="container-fluid grid grid-cols-3 items-center py-4 md:py-5 pointer-events-auto">
+    <!-- Left: logo -->
+    <a href={localizedPath(locale, "/")} class="justify-self-start flex items-center gap-2 group">
       <img
         src="/logo/monogram-white-sm.png"
         alt="Rahma & Prima monogram"
@@ -14,13 +16,19 @@ const other: Locale = locale === "id" ? "en" : "id";
       />
     </a>
 
-    <div class="flex items-center gap-3 md:gap-4">
-      <a href="#rsvp" class="btn-outline btn-outline--sm hidden md:inline-flex">
+    <!-- Center: Konfirmasi CTA (both desktop & mobile) -->
+    <div class="justify-self-center">
+      <a href="#rsvp" class="btn-outline btn-outline--sm">
         <span class="btn-label">
           <span>{t(locale, "nav.rsvp")}</span>
           <span aria-hidden="true">{t(locale, "nav.rsvp")}</span>
         </span>
       </a>
+    </div>
+
+    <!-- Right: music + language toggle -->
+    <div class="justify-self-end flex items-center gap-2 md:gap-3">
+      <MusicPlayer />
       <a
         href={localizedPath(other, Astro.url.pathname.replace(/^\/(en|id)/, "") || "/")}
         class="btn-outline btn-outline--sm"

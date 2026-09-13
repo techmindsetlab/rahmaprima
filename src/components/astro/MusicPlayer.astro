@@ -1,0 +1,137 @@
+---
+// Ambient music toggle with sound-wave visualizer.
+// Attempts autoplay after Opener reveals (user gesture unlocks audio).
+---
+
+<button
+  id="music-toggle"
+  class="music-toggle"
+  data-state="paused"
+  aria-label="Toggle music"
+  type="button"
+>
+  <span class="wave" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </span>
+  <audio
+    id="landing-audio"
+    src="/sounds/music_landing_page.mp3"
+    loop
+    preload="auto"
+    playsinline
+  ></audio>
+</button>
+
+<style>
+  .music-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid rgba(245, 239, 230, 0.25);
+    border-radius: 999px;
+    cursor: pointer;
+    color: #F5EFE6;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .music-toggle:hover, .music-toggle:focus-visible {
+    border-color: rgba(245, 239, 230, 0.55);
+    background: rgba(245, 239, 230, 0.06);
+    outline: none;
+  }
+
+  .wave {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    height: 14px;
+  }
+  .wave > span {
+    display: block;
+    width: 2px;
+    height: 3px;
+    background: currentColor;
+    border-radius: 2px;
+    animation: wave 900ms ease-in-out infinite;
+    animation-play-state: paused;
+    transform-origin: center;
+  }
+  .wave > span:nth-child(1) { animation-delay: 0ms; }
+  .wave > span:nth-child(2) { animation-delay: 140ms; }
+  .wave > span:nth-child(3) { animation-delay: 280ms; }
+  .wave > span:nth-child(4) { animation-delay: 420ms; }
+
+  .music-toggle[data-state="playing"] .wave > span {
+    animation-play-state: running;
+  }
+  .music-toggle[data-state="paused"] .wave > span {
+    height: 3px;
+  }
+
+  @keyframes wave {
+    0%, 100% { height: 3px; }
+    50%      { height: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave > span { animation: none !important; height: 8px; }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById("music-toggle") as HTMLButtonElement | null;
+  const audio = document.getElementById("landing-audio") as HTMLAudioElement | null;
+
+  if (btn && audio) {
+    audio.volume = 0.35;
+
+    async function play() {
+      try {
+        await audio!.play();
+        btn!.dataset.state = "playing";
+      } catch {
+        btn!.dataset.state = "paused";
+      }
+    }
+    function pause() {
+      audio!.pause();
+      btn!.dataset.state = "paused";
+    }
+
+    btn.addEventListener("click", () => {
+      if (audio.paused) play();
+      else pause();
+    });
+
+    // Try to autoplay after opener reveals (user click already unlocked audio)
+    document.addEventListener("opener:done", () => play(), { once: true });
+
+    // If no opener (e.g. session storage says already shown), try after first
+    // interaction anywhere on the page.
+    const kickOnFirstGesture = () => {
+      if (audio.paused && btn.dataset.state !== "playing") play();
+      document.removeEventListener("pointerdown", kickOnFirstGesture);
+      document.removeEventListener("keydown", kickOnFirstGesture);
+    };
+    // Only attach the fallback if the opener has already been dismissed.
+    if (sessionStorage.getItem("rp-opener-shown") === "1") {
+      document.addEventListener("pointerdown", kickOnFirstGesture, { once: true, passive: true });
+      document.addEventListener("keydown", kickOnFirstGesture, { once: true });
+    }
+
+    // Pause audio when tab hidden, resume when visible if it was playing
+    let wasPlaying = false;
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        wasPlaying = !audio.paused;
+        if (wasPlaying) audio.pause();
+      } else if (wasPlaying) {
+        play();
+      }
+    });
+  }
+</script>
