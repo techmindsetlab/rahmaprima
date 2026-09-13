@@ -58,6 +58,14 @@ const welcomeLines = t(locale, "opener.welcome").split("\n");
         </span>
       </button>
 
+      <!-- Countdown audio -->
+      <audio
+        id="opener-audio"
+        src="/sounds/opening_countdown.mp3"
+        preload="auto"
+        playsinline
+      ></audio>
+
       <!-- Countdown ring (hidden until click) -->
       <div id="opener-countdown" aria-hidden="true">
         <div class="opener-ring-wrap">
@@ -72,7 +80,7 @@ const welcomeLines = t(locale, "opener.welcome").split("\n");
             <circle class="opener-ring-track" cx="60" cy="60" r="54" />
             <circle id="opener-ring-progress" cx="60" cy="60" r="54" />
           </svg>
-          <span id="opener-num">10</span>
+          <span id="opener-num">5</span>
         </div>
       </div>
     </div>
@@ -177,39 +185,14 @@ const welcomeLines = t(locale, "opener.welcome").split("\n");
     text-wrap: balance;
   }
 
+  /* Opener button inherits .btn-outline utility (see tokens.css).
+     Only entrance + counting-state overrides here. */
   #opener-btn {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(245,239,230,0.55);
-    background: transparent;
-    color: #F5EFE6;
     padding: 15px 34px;
-    border-radius: 999px;
-    font-family: "Inter", system-ui, sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex; align-items: center; gap: 12px;
+    border-color: rgba(245,239,230,0.55);
     opacity: 0;
     transform: translateY(20px);
     animation: op-in 1s 1.4s ease-out forwards;
-    transition: color 0.3s ease, border-color 0.3s ease;
-  }
-  .opener-btn-label { position: relative; z-index: 2; }
-  .opener-btn-fill {
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, #4A0E19, #8B2E3A 55%, #6B1E2A);
-    transform: translateY(101%);
-    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
-    z-index: 1;
-  }
-  #opener-btn:hover .opener-btn-fill,
-  #opener-btn:focus-visible .opener-btn-fill { transform: translateY(0); }
-  #opener-btn:hover, #opener-btn:focus-visible {
-    border-color: transparent;
-    outline: none;
   }
   #opener-btn[data-anim="counting"] {
     pointer-events: none;
@@ -308,13 +291,21 @@ const welcomeLines = t(locale, "opener.welcome").split("\n");
     document.documentElement.classList.add("opening");
 
     const CIRC = 339.29;
-    const DURATION = 10;
+    const DURATION = 5;
+    const audio = document.getElementById("opener-audio") as HTMLAudioElement | null;
 
     btn.addEventListener("click", startCountdown, { once: true });
 
     function startCountdown() {
       opener!.dataset.state = "counting";
       btn!.setAttribute("data-anim", "counting");
+
+      // Play countdown sound (click is a user gesture -> autoplay allowed)
+      if (audio) {
+        audio.currentTime = 0;
+        audio.volume = 0.85;
+        audio.play().catch(() => {/* autoplay blocked; ignore */});
+      }
 
       let remaining = DURATION;
       num!.textContent = String(remaining);
