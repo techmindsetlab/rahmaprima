@@ -136,6 +136,90 @@
     font-weight: 400;
   }
 
+  /* Animated outline button — text slide-up with ghost duplicate */
+  .btn-outline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 28px;
+    border: 1px solid rgba(245, 239, 230, 0.4);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--cream);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.35s var(--ease-out-expo), color 0.35s var(--ease-out-expo);
+  }
+  .btn-outline::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #4A0E19, #8B2E3A 55%, #6B1E2A);
+    transform: translateY(101%);
+    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+    z-index: 0;
+  }
+  .btn-outline > * { position: relative; z-index: 1; }
+
+  .btn-outline:hover, .btn-outline:focus-visible {
+    border-color: transparent;
+    outline: none;
+  }
+  .btn-outline:hover::before, .btn-outline:focus-visible::before {
+    transform: translateY(0);
+  }
+
+  /* Label wrap: two stacked copies, top slides up, bottom slides in */
+  .btn-label {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1;
+    height: 1em;
+  }
+  .btn-label > span {
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .btn-label > span:last-child {
+    position: absolute;
+    inset: 0;
+    transform: translateY(120%);
+  }
+  .btn-outline:hover .btn-label > span:first-child,
+  .btn-outline:focus-visible .btn-label > span:first-child {
+    transform: translateY(-120%);
+  }
+  .btn-outline:hover .btn-label > span:last-child,
+  .btn-outline:focus-visible .btn-label > span:last-child {
+    transform: translateY(0);
+  }
+
+  /* Arrow / icon slides right on hover */
+  .btn-outline .btn-arrow {
+    display: inline-flex;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+  .btn-outline:hover .btn-arrow,
+  .btn-outline:focus-visible .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Smaller pill variant for nav */
+  .btn-outline--sm {
+    padding: 8px 16px;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    gap: 8px;
+    border-color: rgba(245, 239, 230, 0.25);
+  }
+
   /* Arabic / Quranic type */
   .font-quran {
     font-family: "Uthman Hafs", "Uthman Naskh", "Amiri Quran", serif;

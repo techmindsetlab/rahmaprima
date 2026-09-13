@@ -46,9 +46,16 @@ const welcomeLines = t(locale, "opener.welcome").split("\n");
       <p id="opener-dear" class="eyebrow text-cream/60">{t(locale, "opener.dear")}</p>
       <p id="opener-guest">{displayName}</p>
 
-      <button id="opener-btn" type="button" data-anim="idle">
-        <span class="opener-btn-fill" aria-hidden="true"></span>
-        <span class="opener-btn-label">{t(locale, "opener.button")}</span>
+      <button id="opener-btn" type="button" class="btn-outline" data-anim="idle">
+        <span class="btn-label">
+          <span>{t(locale, "opener.button")}</span>
+          <span aria-hidden="true">{t(locale, "opener.button")}</span>
+        </span>
+        <span class="btn-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </span>
       </button>
 
       <!-- Countdown ring (hidden until click) -->

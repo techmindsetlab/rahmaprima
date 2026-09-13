@@ -14,15 +14,21 @@ const other: Locale = locale === "id" ? "en" : "id";
       />
     </a>
 
-    <div class="flex items-center gap-6 text-cream/70">
-      <a href="#rsvp" class="eyebrow hidden md:inline hover:text-cream transition">
-        {t(locale, "nav.rsvp")}
+    <div class="flex items-center gap-3 md:gap-4">
+      <a href="#rsvp" class="btn-outline btn-outline--sm hidden md:inline-flex">
+        <span class="btn-label">
+          <span>{t(locale, "nav.rsvp")}</span>
+          <span aria-hidden="true">{t(locale, "nav.rsvp")}</span>
+        </span>
       </a>
       <a
         href={localizedPath(other, Astro.url.pathname.replace(/^\/(en|id)/, "") || "/")}
-        class="eyebrow border border-cream/25 rounded-full px-3 py-1.5 hover:bg-cream hover:text-ink transition"
+        class="btn-outline btn-outline--sm"
       >
-        {other.toUpperCase()}
+        <span class="btn-label">
+          <span>{other.toUpperCase()}</span>
+          <span aria-hidden="true">{other.toUpperCase()}</span>
+        </span>
       </a>
     </div>
   </nav>

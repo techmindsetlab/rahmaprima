@@ -27,12 +27,17 @@ const mapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
       </p>
 
       <a href={mapUrl} target="_blank" rel="noopener"
-         class="eyebrow inline-flex items-center gap-2 mt-10 px-6 py-3 border border-cream/40 rounded-full hover:bg-cream hover:text-ink transition backdrop-blur-sm bg-ink/30"
+         class="btn-outline mt-10 backdrop-blur-sm bg-ink/30"
          data-reveal data-reveal-delay="0.3">
-        {t(locale, "venue.cta")}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M7 17L17 7M17 7H8M17 7V16"/>
-        </svg>
+        <span class="btn-label">
+          <span>{t(locale, "venue.cta")}</span>
+          <span aria-hidden="true">{t(locale, "venue.cta")}</span>
+        </span>
+        <span class="btn-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M7 17L17 7M17 7H8M17 7V16"/>
+          </svg>
+        </span>
       </a>
     </div>
   </div>
